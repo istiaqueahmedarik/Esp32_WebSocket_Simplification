@@ -40,7 +40,7 @@ void WebSocketServer::onWebSocketEvent(AsyncWebSocket *server,
     if (type == WS_EVT_CONNECT)
     {
         Serial.println("New client connected");
-        client->text("Welcome to WebSocket Server!");
+        
     }
     else if (type == WS_EVT_DISCONNECT)
     {
@@ -60,7 +60,6 @@ void WebSocketServer::onWebSocketEvent(AsyncWebSocket *server,
             messageCallback(msg);
         }
 
-        client->text("Echo: " + String(msg));
     }
 }
 
