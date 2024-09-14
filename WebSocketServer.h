@@ -1,0 +1,33 @@
+#ifndef WEBSOCKET_SERVER_H
+#define WEBSOCKET_SERVER_H
+
+#include <WiFi.h>
+#include <AsyncTCP.h>
+#include <ESPAsyncWebServer.h>
+
+class WebSocketServer
+{
+public:
+    WebSocketServer(uint16_t port, const char *ws_path);
+
+    void begin(const char *ssid, const char *password);
+
+    void sendMsg(const char *msg);
+
+    void onMessage(void (*callback)(const char *msg));
+
+private:
+    void onWebSocketEvent(AsyncWebSocket *server,
+                          AsyncWebSocketClient *client,
+                          AwsEventType type,
+                          void *arg,
+                          uint8_t *data,
+                          size_t len);
+
+    AsyncWebServer server;
+    AsyncWebSocket ws;
+
+    void (*messageCallback)(const char *msg) = nullptr;
+};
+
+#endif
