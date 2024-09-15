@@ -52,8 +52,7 @@ void WebSocketServer::onWebSocketEvent(AsyncWebSocket *server,
         memcpy(msg, data, len);
         msg[len] = '\0';
 
-        Serial.println("Message received from client:");
-        Serial.println(msg);
+       
 
         if (messageCallback)
         {
