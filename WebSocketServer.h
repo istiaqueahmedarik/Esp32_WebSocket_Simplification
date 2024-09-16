@@ -14,6 +14,8 @@ public:
 
     void sendMsg(const char *msg);
 
+    void SendBIN_TO_BASE64(uint8_t *data, size_t len, bool debug = false);
+
     // Send binary data
     void sendBIN(uint8_t *data, size_t len);
 
