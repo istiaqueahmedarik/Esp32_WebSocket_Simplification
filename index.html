@@ -25,6 +25,13 @@
         #sendBtn {
             width: 18%;
         }
+
+        #imageViewer {
+            width: 100%;
+            height: auto;
+            border: 1px solid #000;
+            margin-top: 10px;
+        }
     </style>
 </head>
 
@@ -37,10 +44,13 @@
     <input type="text" id="message" placeholder="Enter message">
     <button id="sendBtn">Send</button>
 
+    <img id="imageViewer" alt="Binary Data Viewer">
+
     <script>
         let log = document.getElementById("log");
         let messageInput = document.getElementById("message");
         let sendBtn = document.getElementById("sendBtn");
+        let imageViewer = document.getElementById("imageViewer");
 
         // Change this IP address to the IP address of your ESP32
         let ws = new WebSocket("ws://192.168.0.180/ws");
@@ -52,7 +62,16 @@
 
         // Event listener for receiving messages
         ws.onmessage = function (event) {
-            logMessage("Received: " + event.data);
+            if (typeof event.data === "string") {
+                logMessage("Received: " + event.data);
+            } else {
+                let reader = new FileReader();
+                reader.onload = function () {
+                    imageViewer.src = reader.result;
+                };
+                reader.readAsDataURL(event.data);
+                logMessage("Received binary data");
+            }
         };
 
         // Event listener for WebSocket errors

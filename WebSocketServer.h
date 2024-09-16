@@ -14,6 +14,9 @@ public:
 
     void sendMsg(const char *msg);
 
+    // Send binary data
+    void sendBIN(uint8_t *data, size_t len);
+
     void onMessage(void (*callback)(const char *msg));
 
 private:

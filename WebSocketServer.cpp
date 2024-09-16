@@ -70,6 +70,12 @@ void WebSocketServer::sendMsg(const char *msg)
     Serial.println("Message sent to all clients: " + String(msg));
 }
 
+void WebSocketServer::sendBIN(uint8_t *data, size_t len)
+{
+    ws.binaryAll(data, len);
+    Serial.println("Binary data sent to all clients");
+}
+
 void WebSocketServer::onMessage(void (*callback)(const char *msg))
 {
     messageCallback = callback;
